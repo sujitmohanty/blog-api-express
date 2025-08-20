@@ -14,6 +14,11 @@ import config from '@/config';
 import limiter from '@/lib/express_rate_limit';
 
 /**
+ * Router
+ */
+import v1Routes from '@/routes/v1';
+
+/**
  * Types
  */
 import type { CorsOptions } from 'cors';
@@ -63,12 +68,42 @@ app.use(helmet());
 // Apply rate limiting middleware to prevent excessive requests and enhance security
 app.use(limiter);
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Hello World',
-  });
-});
+// IIFE to start the server
+(async () => {
+  try {
+    app.use('/api/v1', v1Routes);
 
-app.listen(config.PORT, () => {
-  console.log(`Server running: http://localhost:${config.PORT}`);
-});
+    app.listen(config.PORT, () => {
+      console.log(`Server running: http://localhost:${config.PORT}`);
+    });
+  } catch (error) {
+    console.log('Failed to start the server');
+  }
+})();
+
+/**
+ * Handle server shutdown gracefully by disconnecting from the database.
+ *
+ * - Attempts to disconnect from the database before shutting down the server.
+ * - Logs a success message if the disconnection is successful.
+ * - If an error occurs during disconnection, it is logged to the console.
+ * - Exits the process with status code `0` (indicating a successful shutdown).
+ */
+const handleServerShutdown = async () => {
+  try {
+    console.log('Server SHUTDOWN');
+    process.exit(0);
+  } catch (err) {
+    console.log('Error during server shutdown', err);
+  }
+};
+
+/**
+ * Listen for termination signals (`SIGTERM` and `SIGINT`).
+ *
+ * - `SIGTERM` is typically sent when stopping a process (e.g., `kill` command or container shutdown).
+ * - `SIGINT` is triggered when the user interrupts the process (e.g., pressing `Ctrl + C`).
+ * - When either signal is received, `handleServerShutdown` is executed to ensure proper cleanup.
+ */
+process.on('SIGTERM', handleServerShutdown);
+process.on('SIGINT', handleServerShutdown);
