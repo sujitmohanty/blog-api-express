@@ -13,6 +13,7 @@ import helmet from 'helmet';
 import config from '@/config';
 import limiter from '@/lib/express_rate_limit';
 import { connectToDatabase, disconnectFromDatabase } from '@/lib/mongoose';
+import { logger } from '@/lib/winston';
 
 /**
  * Router
@@ -40,6 +41,7 @@ const corsOptions: CorsOptions = {
         new Error(`CORS error: ${origin} is not allowed by CORS`),
         false,
       );
+      logger.warn(`CORS error: ${origin} is not allowed by CORS`);
     }
   },
 };
@@ -77,10 +79,10 @@ app.use(limiter);
     app.use('/api/v1', v1Routes);
 
     app.listen(config.PORT, () => {
-      console.log(`Server running: http://localhost:${config.PORT}`);
+      logger.info(`Server running: http://localhost:${config.PORT}`);
     });
   } catch (error) {
-    console.error('Failed to start the server');
+    logger.error('Failed to start the server');
   }
 })();
 
