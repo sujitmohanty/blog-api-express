@@ -4,8 +4,9 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
+    "build": "tsc && tsc-alias",
     "dev": "nodemon",
-    "start": "node -r tsconfig-paths/register dist/server.js"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "Sujit Mohanty",
@@ -23,6 +24,8 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {
@@ -42,7 +45,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.2",
     "multer": "^2.0.2",
-    "tsconfig-paths": "^4.2.0",
     "winston": "^3.17.0"
   }
 }
