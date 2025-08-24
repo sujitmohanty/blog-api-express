@@ -16,7 +16,6 @@ COPY src ./src
 RUN npx tsc
 
 FROM base AS runner
-RUN addgroup -S nodejs && adduser -S node -G nodejs
 USER node
 
 COPY --from=deps /app/node_modules ./node_modules
