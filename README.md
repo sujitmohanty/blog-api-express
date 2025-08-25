@@ -110,10 +110,10 @@ npm start
 
 ```bash
 # Build image
-docker build -t blog-api:prod .
+docker build -t blog-api .
 
 # Run container
-docker run -p 4000:3000 --env-file .env blog-api:prod
+docker run -p 4000:8080 --env-file .env blog-api
 ```
 
 ---
