@@ -78,8 +78,10 @@ app.use(limiter);
 
     app.use('/api/v1', v1Routes);
 
-    app.listen(config.PORT, () => {
-      logger.info(`Server running: http://localhost:${config.PORT}`);
+    const PORT = Number(process.env.PORT) || 3000;
+
+    app.listen(PORT, '0.0.0.0', () => {
+      logger.info(`API listening on http://0.0.0.0:${PORT}`);
     });
   } catch (error) {
     logger.error('Failed to start the server');
