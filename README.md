@@ -9,7 +9,7 @@
 ![Cloudinary](https://img.shields.io/badge/cloudinary-image%20hosting-yellow?logo=cloudinary)
 ![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)
 
-🔗 **Live API**: [https://blog-api-807111925754.europe-west3.run.app](https://blog-api-807111925754.europe-west3.run.app)
+🔗 **Live API**: [https://blog-api-807111925754.europe-west3.run.app/api/v1](https://blog-api-807111925754.europe-west3.run.app)
 
 A **RESTful blog API** built with **Express.js & TypeScript**, featuring **JWT authentication with refresh tokens**, **role-based access control**, **file uploads via Multer + Cloudinary**, and **MongoDB Atlas** for persistence.
 
