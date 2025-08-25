@@ -184,13 +184,13 @@ Full Postman Collection: [🔗 View on Postman](https://www.postman.com/sujit-mo
 
 ## 🔐 Security & Reliability
 
-Secrets never hardcoded or committed to VCS
+- Secrets never hardcoded or committed to VCS
 
-Role-based access for service accounts (principle of least privilege)
+- Role-based access for service accounts (principle of least privilege)
 
-Health checks via /health endpoint for monitoring
+- Health checks via /health endpoint for monitoring
 
-Graceful shutdown handlers for clean DB disconnection during container termination
+- Graceful shutdown handlers for clean DB disconnection during container termination
 
 ---
 
