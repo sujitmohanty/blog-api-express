@@ -31,19 +31,19 @@ import type { CorsOptions } from 'cors';
 const app = express();
 
 // Configure CORS options
+const allowed = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 const corsOptions: CorsOptions = {
-  origin(origin, callback) {
-    if (config.NODE_ENV === 'development' || !origin) {
-      callback(null, true);
-    } else {
-      // Reject requests from non-whitelisted origins
-      callback(
-        new Error(`CORS error: ${origin} is not allowed by CORS`),
-        false,
-      );
-      logger.warn(`CORS error: ${origin} is not allowed by CORS`);
-    }
+  origin(origin, cb) {
+    if (!origin) return cb(null, true); // non-browser or same-origin
+    if (config.NODE_ENV === 'development' || allowed.includes(origin))
+      return cb(null, true);
+    logger.warn(`CORS blocked: ${origin}`);
+    cb(new Error(`CORS error: ${origin} not allowed`));
   },
+  credentials: true,
 };
 
 // Apply CORS middleware

@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc && tsc-alias",
+    "gcp-build": "npm run build",
     "dev": "nodemon",
     "start": "node dist/server.js"
   },
