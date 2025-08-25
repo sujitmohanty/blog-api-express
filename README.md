@@ -9,6 +9,8 @@
 ![Cloudinary](https://img.shields.io/badge/cloudinary-image%20hosting-yellow?logo=cloudinary)
 ![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)
 
+🔗 **Live API**: [https://blog-api-807111925754.europe-west3.run.app](https://blog-api-807111925754.europe-west3.run.app)
+
 A **RESTful blog API** built with **Express.js & TypeScript**, featuring **JWT authentication with refresh tokens**, **role-based access control**, **file uploads via Multer + Cloudinary**, and **MongoDB Atlas** for persistence.
 
 The project is containerized with **Docker** and includes production-ready practices like logging, graceful shutdown, and input validation.
@@ -177,6 +179,56 @@ Full Postman Collection: [🔗 View on Postman](https://www.postman.com/sujit-mo
 - Logs are handled via **Winston**
 - Different transports for console and file
 - JSON structured logging (ready for production monitoring tools)
+
+---
+
+## 🔐 Security & Reliability
+
+Secrets never hardcoded or committed to VCS
+
+Role-based access for service accounts (principle of least privilege)
+
+Health checks via /health endpoint for monitoring
+
+Graceful shutdown handlers for clean DB disconnection during container termination
+
+---
+
+## 🚀 DevOps & Deployment
+
+This project demonstrates modern DevOps workflows in addition to backend API development:
+
+### 🐳 Containerization with Docker
+
+- Multi-stage **Dockerfile** for optimized builds:
+  - Stage 1: Install dependencies & compile TypeScript → `dist/`
+  - Stage 2: Copy production artifacts, install only production dependencies, run as non-root user
+- `.dockerignore` configured to keep images slim
+- Works both locally (`docker run --env-file .env -p 4000:8080 blog-api`) and in production (`NODE_ENV=production`)
+
+### 🔄 Continuous Integration (GitHub Actions → GHCR)
+
+- GitHub Actions workflow builds Docker images on pushes
+- Images are published to **GitHub Container Registry (GHCR)**
+- Tagged with commit SHA and `latest` for traceability
+
+### ☁️ Continuous Deployment to Google Cloud Run
+
+- Cloud Run pulls images from GHCR for deployment
+- Environment configuration:
+  - Sensitive values (`JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, `MONGO_URI`, `CLOUDINARY_URL`) stored in **Google Secret Manager**
+  - Non-sensitive config (`NODE_ENV`, `LOG_LEVEL`, token expiry times) injected via Cloud Run environment variables
+- Cloud Run handles:
+  - Auto-scaling based on traffic
+  - HTTPS endpoint & traffic splitting between revisions
+  - Zero-downtime deployments
+
+---
+
+### ✅ Summary
+
+This project is fully containerized, automatically built via GitHub Actions, published to GHCR, and deployed to Google Cloud Run with secrets managed securely through Secret Manager.  
+It demonstrates an **end-to-end CI/CD pipeline** from source code → container → cloud deployment.
 
 ---
 
