@@ -157,14 +157,6 @@ Full Postman Collection: [🔗 View on Postman](https://www.postman.com/sujit-mo
 
 ---
 
-## 📸 Screenshots
-
-### Example: Postman Register Endpoint
-
-![Register API Response](https://i.ibb.co/ccv5NvTF/Screenshot-2025-08-24-181246.png)
-
----
-
 ## 🐳 Docker + DevOps Notes
 
 - Image is built from `Dockerfile` with production settings
